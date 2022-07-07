@@ -7,9 +7,11 @@ use App\Form\Type\ProductFormType;
 use App\Repository\ProductRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProductController extends AbstractController
@@ -27,7 +29,7 @@ class ProductController extends AbstractController
    /**
    * @Route("/product/add", name="addProduct")
    */
-  public function addProductAction(ManagerRegistry $res, Request $req, ValidatorInterface $valid): Response
+  public function addProductAction(ManagerRegistry $res, Request $req, SluggerInterface $slugger, ValidatorInterface $valid): Response
   {
     $product = new Product();
     $productForm = $this->createForm(ProductFormType::class, $product);
@@ -42,12 +44,21 @@ class ProductController extends AbstractController
       $product->setDetailDesc($data->getDetailDesc());
       $product->setProQty($data->getProQty());
       $product->setCat($data->getCat());
-      $product->setImage($data->getImage());
-
-      $err = $valid->validate($product);
-      if (count($err) > 0) {
-        $string_err = (string)$err;
-        return new Response($string_err, 400);
+      
+      $imgFile = $productForm->get('image')->getData();
+      if ($imgFile) {
+          $originalFilename = pathinfo($imgFile->getClientOriginalName(), PATHINFO_FILENAME);
+          $safeFilename = $slugger->slug($originalFilename);
+          $newFilename = $safeFilename . '-' . uniqid() . '.' . $imgFile->guessExtension();
+          try {
+              $imgFile->move(
+                  $this->getParameter('image_dir'),
+                  $newFilename
+              );
+          } catch (FileException $e) {
+              echo $e;
+          }
+          $product->setImage($newFilename);
       }
       $entity->persist($product);
       $entity->flush();
@@ -84,10 +95,36 @@ class ProductController extends AbstractController
           }
           $entity->persist($product);
           $entity->flush();
-          return $this->redirectToRoute("car_index");
+          return $this->redirectToRoute("app_product");
         }
         return $this->render('product/add.html.twig', [
           'form' => $productForm->createView()
         ]);
+    }
+
+    public function deleteCategoryFunction(ProductRepository $repo, ManagerRegistry $doc, $id): Response
+    {
+        $product = $repo->find($id);
+ 
+        if (!$product) {
+            throw
+            $this->createNotFoundException('Invalid ID ' . $id);
+        }
+        $entity = $doc->getManager();
+        $entity->remove($product);
+        $entity->flush();
+        return $this->redirectToRoute("app_product");
+    }
+
+    /**
+     * @Route("/product/getImage/{filename}", name="get_image")
+     */
+    public function getImage($filename): Response
+    {
+        $file = $this->getParameter('image_dir') . '/' . $filename;
+        $response = new Response();
+        $response->headers->set('Content-Type', 'image/jpg');
+        $response->setContent(file_get_contents($file));
+        return $response;
     }
 }
