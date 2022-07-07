@@ -43,11 +43,6 @@ class Product
     private $detail_desc;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $pro_date;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $pro_qty;
@@ -124,18 +119,6 @@ class Product
     public function setDetailDesc(string $detail_desc): self
     {
         $this->detail_desc = $detail_desc;
-
-        return $this;
-    }
-
-    public function getProDate(): ?\DateTimeInterface
-    {
-        return $this->pro_date;
-    }
-
-    public function setProDate(\DateTimeInterface $pro_date): self
-    {
-        $this->pro_date = $pro_date;
 
         return $this;
     }
