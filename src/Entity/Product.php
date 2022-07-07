@@ -63,11 +63,6 @@ class Product
      */
     private $image;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $supplier;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -177,18 +172,6 @@ class Product
     public function setImage(string $image): self
     {
         $this->image = $image;
-
-        return $this;
-    }
-    
-    public function getSupplier(): ?string
-    {
-        return $this->supplier;
-    }
-
-    public function setSupplier(string $supplier): self
-    {
-        $this->supplier = $supplier;
 
         return $this;
     }
