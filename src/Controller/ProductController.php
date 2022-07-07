@@ -40,7 +40,6 @@ class ProductController extends AbstractController
       $product->setOldPrice($data->getOldPrice());
       $product->setSmallDesc($data->getSmallDesc());
       $product->setDetailDesc($data->getDetailDesc());
-      $product->setProDate($data->getProDate());
       $product->setProQty($data->getProQty());
       $product->setCat($data->getCat());
       $product->setImage($data->getImage());
@@ -74,7 +73,6 @@ class ProductController extends AbstractController
           $product->setOldPrice($data->getOldPrice());
           $product->setSmallDesc($data->getSmallDesc());
           $product->setDetailDesc($data->getDetailDesc());
-          $product->setProDate($data->getProDate());
           $product->setProQty($data->getProQty());
           $product->setCat($data->getCat());
           $product->setImage($data->getImage());
