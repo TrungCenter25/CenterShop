@@ -14,11 +14,9 @@
             <thead>
                 <tr>
                     <th><strong>No.</strong></th>
-                    <th><strong>Product ID</strong></th>
                     <th><strong>Product Name</strong></th>
                     <th><strong>Price</strong></th>
                     <th><strong>Quantity</strong></th>
-                    <th><strong>Category ID</strong></th>
                     <th><strong>Image</strong></th>
                     <th><strong>Edit</strong></th>
                     <th><strong>Delete</strong></th>
@@ -27,14 +25,12 @@
             <tbody>
             {% for p in product %}
                  <tr>
-                        <td>class </td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{p.id}}</td>
+                        <td>{{p.ProductName}}</td>
+                        <td>{{p.Price}}</td>
+                        <td>{{p.ProQty}}</td>
                         <td align='center'>
-                            <img src='imgProduct/<?php echo $row["Pro_image"] ?>' border='0' width="50" height="50" />
+                            <img src="{{ path('get_image', {filename: p.image})}}" width="50" height="50" />
                         </td>
                         <td align='center'>
                             <a href="?page=update_product&&id=<?php echo $row['Product_ID']; ?>"> 
@@ -42,7 +38,7 @@
                             </a>
                         </td>
                             <td align='center'>
-                                <a href="?page=product_management&&function=del&&id=<?php echo $row["Product_ID"]; ?>" onclick="return deleteConfirm()">
+                                <a href="?page=product_management&&function=del&&id=  $row["Product_ID"]; >
                                     <img src="img/delete.png" border='0' width="16" height="16" /></a>
                             </td>
                     </tr>
