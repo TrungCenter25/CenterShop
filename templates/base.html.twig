@@ -63,7 +63,7 @@
 					<li><a href="#"><i class="bi bi-telephone-fill"></i> +07766885544</a></li>
 					<li><a href="#"><i class="bi bi-envelope"></i> CenterShop@email.com</a></li>
 					<li><a href="#"><i class="bi bi-geo-alt-fill"></i> Can Tho</a></li>
-					<li><a href="https://www.facebook.com/TrungCenter/"><i class="bi bi-facebook"></i>Facebook</a></li>
+					<li><a href=""><i class="bi bi-facebook"></i>Facebook</a></li>
                     </div>
 				</ul>
             </div>
@@ -103,7 +103,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+            <a class="nav-link active" aria-current="page" href="{{path('home_page')}}">Home</a>
           </li> 
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{path('app_product')}}"> Product</a>
@@ -169,11 +169,6 @@
                     <div class="latest-product">
                         <h2 class="section-title" style="text-align:center;">Product</h2>
                         <div class="product-carousel">
-                           <?php
-                              $sql = "SELECT * FROM Product";
-                              $re = mysqli_query($conn, $sql);
-                              while ($row = mysqli_fetch_assoc($re)){
-                            ?>
           <div class="col-md-4">
             <div class="card" style="text-align:center;">
                 <img
@@ -184,15 +179,12 @@
                 width="200" height="200"
                 />
                 <div class="card-body" style="display:inline-block">
-                <a href="#" class="text-decoration-none"><h5 class="card-title"><?=$row['Product_Name']?></h5></a>
-                <h6 class="card-subtitle mb-2 text-muted"><span>&#8363;</span><?=$row['Price']?></h6>
+                <a href="#" class="text-decoration-none"><h5 class="card-title"></h5></a>
+                <h6 class="card-subtitle mb-2 text-muted"><span>&#8363;</span></h6>
                 <a href="#" class="btn btn-warning" style="color:black">Buy</a>
                 </div>
             </div>
       </div>
-      <?php
-    }
-      ?>
 
                         </div>
                     </div>
