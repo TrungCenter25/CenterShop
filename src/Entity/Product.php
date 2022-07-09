@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +41,7 @@ class Product
      */
     private $detail_desc;
 
+
     /**
      * @ORM\Column(type="integer")
      */
@@ -57,6 +57,7 @@ class Product
      * @ORM\Column(type="string", length=255)
      */
     private $image;
+
 
     public function getId(): ?int
     {
@@ -158,4 +159,5 @@ class Product
 
         return $this;
     }
+    
 }
