@@ -30,6 +30,7 @@ class ProductFormType extends AbstractType
         ->add('SmallDesc', TextType::class)
         ->add('DetailDesc', TextType::class)
         ->add('Pro_qty', TextType::class)
+        
         ->add('cat', EntityType::class,[
             'class'=> Category::class,
             'choice_label' => 'CatName'
