@@ -52,7 +52,7 @@ class ProductController extends AbstractController
           $newFilename = $safeFilename . '-' . uniqid() . '.' . $imgFile->guessExtension();
           try {
               $imgFile->move(
-                  $this->getParameter('image_dir'),
+                  $this->getParameter('image_product'),
                   $newFilename
               );
           } catch (FileException $e) {
@@ -69,7 +69,7 @@ class ProductController extends AbstractController
     ]);
   }
       /**
-     * @Route("/edit/{id}", name="editProduct")
+     * @Route("/editproduct/{id}", name="editProduct")
      */
     public function editProductAction(ManagerRegistry $res, Request $req, ValidatorInterface $valid, ProductRepository $repo, $id): Response
     {
@@ -102,7 +102,10 @@ class ProductController extends AbstractController
         ]);
     }
 
-    public function deleteCategoryFunction(ProductRepository $repo, ManagerRegistry $doc, $id): Response
+     /**
+     * @Route("/deleteproduct/{id}", name="deleteProduct")
+     */
+    public function deleteProductFunction(ProductRepository $repo, ManagerRegistry $doc, $id): Response
     {
         $product = $repo->find($id);
  
@@ -121,9 +124,9 @@ class ProductController extends AbstractController
      */
     public function getImage($filename): Response
     {
-        $file = $this->getParameter('image_dir') . '/' . $filename;
+        $file = $this->getParameter('image_product') . '/' . $filename;
         $response = new Response();
-        $response->headers->set('Content-Type', 'image/jpg');
+        $response->headers->set('Content-Type', 'image/png');
         $response->setContent(file_get_contents($file));
         return $response;
     }
