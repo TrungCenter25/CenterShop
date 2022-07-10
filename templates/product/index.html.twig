@@ -19,7 +19,6 @@
                     <th><strong>Quantity</strong></th>
                     <th><strong>Description</strong></th>
                     <th><strong>Image</strong></th>
-                    <th><strong>Edit</strong></th>
                     <th><strong>Delete</strong></th>
                 </tr>
             </thead>
@@ -33,11 +32,6 @@
                         <td>{{p.DetailDesc}}</td>
                         <td align='center'>
                             <img src="{{ path('get_image', { filename: p.image }) }}" width="50" height="50" />
-                        </td>
-                        <td align='center'>
-                            <a href="{{path('editProduct', {id:p.id})}}"> 
-                                <img src="img/setting.png" width="16" height="16" border='0' />
-                            </a>
                         </td>
                             <td align='center'>
                                 <a href="{{path('deleteProduct', {id:p.id})}}">
